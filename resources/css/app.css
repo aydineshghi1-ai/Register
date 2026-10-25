@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* ===== Blue Galaxy Background ===== */
+
+body.galaxy-bg {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(ellipse at 15% 20%, rgba(29, 78, 216, 0.32), transparent 42%),
+        radial-gradient(ellipse at 85% 75%, rgba(79, 70, 229, 0.28), transparent 40%),
+        linear-gradient(135deg, #020617 0%, #071a3a 48%, #030712 100%);
+}
+
+/* Star field */
+body.galaxy-bg::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 80px 120px, #bfdbfe, transparent),
+        radial-gradient(2px 2px at 160px 70px, #fff, transparent),
+        radial-gradient(1px 1px at 230px 180px, #93c5fd, transparent),
+        radial-gradient(2px 2px at 300px 40px, #dbeafe, transparent),
+        radial-gradient(1px 1px at 360px 150px, #fff, transparent);
+    background-size: 390px 220px;
+    opacity: 0.65;
+    animation: galaxy-stars 90s linear infinite;
+}
+
+/* Nebula glow */
+body.galaxy-bg::after {
+    content: "";
+    position: fixed;
+    inset: -25%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 30% 35%, rgba(37, 99, 235, 0.24), transparent 32%),
+        radial-gradient(ellipse at 70% 60%, rgba(99, 102, 241, 0.19), transparent 35%),
+        radial-gradient(ellipse at 55% 15%, rgba(14, 165, 233, 0.13), transparent 30%);
+    filter: blur(28px);
+    animation: galaxy-nebula 18s ease-in-out infinite alternate;
+}
+
+@keyframes galaxy-stars {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(120px, 80px, 0);
+    }
+}
+
+@keyframes galaxy-nebula {
+    0% {
+        transform: translate3d(-2%, 1%, 0) scale(1);
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(2%, -2%, 0) scale(1.08);
+        opacity: 0.75;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    body.galaxy-bg::before,
+    body.galaxy-bg::after {
+        animation: none;
+    }
+}
