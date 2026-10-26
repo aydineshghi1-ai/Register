@@ -96,6 +96,7 @@
                         type="tel"
                         id="mobile"
                         name="mobile"
+                        value="{{ old('mobile') }}"
                         placeholder="09123456789"
                         class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
                         required
@@ -110,6 +111,7 @@
                         type="email"
                         id="email"
                         name="email"
+                        value="{{ old('email') }}"
                         placeholder="example@email.com"
                         dir="ltr"
                         class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-left outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
@@ -138,6 +140,7 @@
                     <input
                         type="text"
                         id="national_id"
+                        value="{{ old('national_id') }}"
                         name="national_id"
                         maxlength="10"
                         inputmode="numeric"

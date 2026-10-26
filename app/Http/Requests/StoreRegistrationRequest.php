@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\IranianNationalCode;
 
 class StoreRegistrationRequest extends FormRequest
 {
@@ -26,13 +27,13 @@ class StoreRegistrationRequest extends FormRequest
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
 
-            'mobile' => ['required', 'string','min:11', 'max:20', 'unique:registrations,mobile'],
+            'mobile' => ['required', 'string', 'unique:registrations,mobile', 'regex:/^09[0-9]{9}$/'],
 
             'email' => ['required', 'email', 'max:255', 'unique:registrations,email'],
 
             'birth_date' => ['required', 'date', 'before:today'],
 
-            'national_id' => ['required', 'digits:10', 'unique:registrations,national_id'],
+            'national_id' => ['required', 'digits:10', 'unique:registrations,national_id',  new IranianNationalCode(),],
         ];
     }
 
@@ -45,6 +46,7 @@ class StoreRegistrationRequest extends FormRequest
             'mobile.required' => 'وارد کردن شماره موبایل الزامی است.',
             'mobile.unique' => 'این شماره موبایل قبلاً ثبت شده است.',
             'mobile.min' => 'شماره تماس شما باید بیش از 11 رقم باشد.',
+            'mobile.regex' => 'شماره تماس باید با 09 شروع شود و بیش از 11 رقم باشد',
 
             'email.required' => 'وارد کردن ایمیل الزامی است.',
             'email.email' => 'فرمت ایمیل معتبر نیست.',
