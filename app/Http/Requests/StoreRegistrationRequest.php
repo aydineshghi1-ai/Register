@@ -34,6 +34,9 @@ class StoreRegistrationRequest extends FormRequest
             'birth_date' => ['required', 'date', 'before:today'],
 
             'national_id' => ['required', 'digits:10', 'unique:registrations,national_id',  new IranianNationalCode(),],
+
+            'password' => [ 'required',     'string',   'min:8',    'confirmed', ],
+            'password_confirmation' => [   'required',    'string', ],
         ];
     }
 
@@ -59,6 +62,11 @@ class StoreRegistrationRequest extends FormRequest
             'national_id.required' => 'وارد کردن کد ملی الزامی است.',
             'national_id.digits' => 'کد ملی باید دقیقاً ۱۰ رقم باشد.',
             'national_id.unique' => 'این کد ملی قبلاً ثبت شده است.',
+
+            'password.required' => 'وارد کردن رمز عبور الزامی است.',
+            'password.min' => 'رمز عبور باید حداقل ۸ کاراکتر باشد.',
+            'password.confirmed' => 'رمز عبور و تکرار آن یکسان نیستند.',
+            'password_confirmation.required' => 'تکرار رمز عبور الزامی است.',
         ];
     }
 }
