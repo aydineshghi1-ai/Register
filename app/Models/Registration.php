@@ -34,4 +34,52 @@ class Registration extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'registration_role'
+        )->withTimestamps();
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()
+            ->where('slug', $role)
+            ->exists();
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->roles()
+            ->whereIn('slug', $roles)
+            ->exists();
+    }
+
+    public function hasAllRoles(array $roles): bool
+    {
+        $roles = array_unique($roles);
+
+        if (empty($roles)) {
+            return false;
+        }
+
+        return $this->roles()
+                ->whereIn('slug', $roles)
+                ->count() === count($roles);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'created_by');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(
+            Post::class,
+            'author_id'
+        );
+    }
 }

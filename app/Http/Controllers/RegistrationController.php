@@ -26,7 +26,7 @@ class RegistrationController extends Controller
         Registration::create($data);
 
         return redirect()
-            ->route('register')
-            ->with('success', 'اطلاعات شما با موفقیت ثبت شد.');
+            ->route('login')
+            ->with('success', 'ثبت‌نام با موفقیت انجام شد. اکنون وارد حساب خود شوید.');
     }
 }

@@ -14,3 +14,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::middleware('auth:api')->post('/refresh', [AuthController::class, 'refresh'])
     ->name('api.refresh');
+
+Route::middleware(['auth:api', 'role:admin'])->get('/admin-test', function () {
+        return response()->json([
+            'message' => 'Admin access granted.',
+        ]);
+    });

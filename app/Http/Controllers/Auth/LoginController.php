@@ -22,8 +22,21 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            $user = Auth::user();
+
+            if (
+                $user->hasAllRoles(['reporter', 'admin']) ||
+                $user->hasAllRoles(['reporter', 'creator'])
+            ) {
+                return redirect()->route('posts.index');
+            }
+
+            return redirect()
+                ->route('home')
+                ->with('info', 'شما وارد حساب کاربری خود شدید، اما دسترسی به پنل مدیریت مطالب را ندارید.');
         }
         return back()->withErrors([
             'email' => 'ایمیل یا رمز عبور اشتباه است.',
